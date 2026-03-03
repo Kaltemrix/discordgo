@@ -730,9 +730,6 @@ func (s *Session) ChannelVoiceJoin(ctx context.Context, gID, cID string, mute, d
 
 	if voice == nil {
 		voice = &VoiceConnection{}
-		if h != nil {
-			voice.AddHandler(h)
-		}
 		s.Lock()
 		s.VoiceConnections[gID] = voice
 		s.Unlock()
@@ -747,6 +744,10 @@ func (s *Session) ChannelVoiceJoin(ctx context.Context, gID, cID string, mute, d
 	voice.session = s
 	voice.LogLevel = s.LogLevel
 	voice.Cond.L.Unlock()
+
+	if h != nil {
+		voice.AddHandler(h)
+	}
 
 	err = s.VoiceStateUpdate(gID, cID, mute, deaf)
 	if err != nil {
