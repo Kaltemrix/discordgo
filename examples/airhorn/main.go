@@ -12,7 +12,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/bwmarrin/discordgo"
+	"github.com/kaltemrix/discordgo"
 )
 
 func init() {
